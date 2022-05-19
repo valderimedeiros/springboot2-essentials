@@ -39,6 +39,14 @@ public class AnimeController {
         return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
     }
 
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id){
+        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        animeService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 //    @GetMapping(path = "list2")
 //    public List<Anime> list2(){
 //        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
