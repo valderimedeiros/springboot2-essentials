@@ -17,13 +17,17 @@ import java.util.List;
 public class AnimeService {
     private final AnimeRepository animeRepository;
 
-    public List<Anime> listAll(){
+    public List<Anime> listAll() {
         return animeRepository.findAll();
     }
 
-    public Anime findByIdOrThrowBadReqiestException(long id){
+    public List<Anime> findByName(String name) {
+        return animeRepository.findByName(name);
+    }
+
+    public Anime findByIdOrThrowBadRegisterException(long id) {
         return animeRepository.findById(id)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
@@ -32,14 +36,14 @@ public class AnimeService {
 
     public void delete(long id) {
 
-        animeRepository.delete(findByIdOrThrowBadReqiestException(id));
+        animeRepository.delete(findByIdOrThrowBadRegisterException(id));
     }
 
     public void replace(AnimePutRequestBody animePutRequestBody) {
 
-        Anime savedAnime = findByIdOrThrowBadReqiestException(animePutRequestBody.getId());
+        Anime savedAnime = findByIdOrThrowBadRegisterException(animePutRequestBody.getId());
 
-        Anime anime =  AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
         anime.setId(savedAnime.getId());
 
         animeRepository.save(anime);
