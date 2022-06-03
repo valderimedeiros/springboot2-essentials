@@ -3,7 +3,9 @@ package academy.devdojo.springboot2.client;
 import academy.devdojo.springboot2.domain.Anime;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,5 +32,14 @@ public class SpringClient {
         );
 
         log.info(exchange.getBody());
+
+
+        Anime kingdom = Anime.builder().name("kingdom").build();
+        Anime kingdomSaved = new RestTemplate().postForObject("http://localhost:8080/anime/", kingdom, Anime.class);
+
+        log.info("kingdom saved {}", kingdomSaved);
+
+
+
     }
 }
