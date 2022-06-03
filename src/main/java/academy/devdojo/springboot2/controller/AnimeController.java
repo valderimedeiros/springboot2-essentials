@@ -10,8 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import requests.AnimePostRequestBody;
-import requests.AnimePutRequestBody;
+import academy.devdojo.springboot2.requests.AnimePostRequestBody;
+import academy.devdojo.springboot2.requests.AnimePutRequestBody;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
