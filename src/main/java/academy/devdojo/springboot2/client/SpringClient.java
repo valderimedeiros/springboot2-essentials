@@ -3,10 +3,7 @@ package academy.devdojo.springboot2.client;
 import academy.devdojo.springboot2.domain.Anime;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -34,13 +31,34 @@ public class SpringClient {
         log.info(exchange.getBody());
 
 
-        Anime samurai = Anime.builder().name("samurai").build();
+        Anime samurai = Anime.builder().name("samurai5").build();
         ResponseEntity<Anime> samuraiSaved = new RestTemplate().exchange("http://localhost:8080/anime/",
                 HttpMethod.POST,
                 new HttpEntity<>(samurai),
                 Anime.class);
 
-        log.info("samurai saved {}",samuraiSaved);
+        Anime animeToBeUpdated = samuraiSaved.getBody();
+        animeToBeUpdated.setName("samurai xpto3");
+        new RestTemplate().exchange("http://localhost:8080/anime/",
+                HttpMethod.PUT,
+                new HttpEntity<>(animeToBeUpdated,createJsonHeader()),
+                Void.class);
 
+
+        Anime animeToBeDeleted = samuraiSaved.getBody();
+        new RestTemplate().exchange("http://localhost:8080/anime/{id}",
+                HttpMethod.DELETE,
+               null,
+                Void.class,
+                animeToBeDeleted.getId());
+
+        log.info("samurai animeToBeDeleted {}",animeToBeDeleted);
+
+    }
+
+    private static HttpHeaders createJsonHeader(){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        return httpHeaders;
     }
 }
