@@ -14,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @Entity
 @Builder
+@EqualsAndHashCode
 public class Anime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
