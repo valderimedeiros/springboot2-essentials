@@ -1,6 +1,7 @@
 package academy.devdojo.springboot2.repository;
 
 import academy.devdojo.springboot2.domain.Anime;
+import academy.devdojo.springboot2.util.AnimeCreator;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +25,7 @@ class AnimeRepositoryTest {
     @DisplayName("Save Creates Anime when Successful")
     void save_PersistAnime_WhenSucessful(){
 
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = animeRepository.save(animeToBeSaved);
 
         Assertions.assertThat(animeSaved).isNotNull();
@@ -40,7 +41,7 @@ class AnimeRepositoryTest {
     @DisplayName("Save update Anime when Successful")
     void save_UpdateAnime_WhenSucessful(){
 
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = animeRepository.save(animeToBeSaved);
 
         animeSaved.setName("overLord");
@@ -60,7 +61,7 @@ class AnimeRepositoryTest {
     @DisplayName("Delete remove Anime when Successful")
     void delete_RemoveAnime_WhenSucessful(){
 
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = animeRepository.save(animeToBeSaved);
 
         animeRepository.delete(animeSaved);
@@ -75,7 +76,7 @@ class AnimeRepositoryTest {
     @DisplayName("Find by name returns list of anime when Successful")
     void findByName_ReturnsListOfAnime_WhenSucessful(){
 
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = animeRepository.save(animeToBeSaved);
 
         String name = animeSaved.getName();
@@ -113,13 +114,6 @@ class AnimeRepositoryTest {
 
 
     }
-
-    private Anime createAnime(){
-        return Anime.builder().
-                name("Chico Tripa").
-                build();
-    }
-
 
 
 }
