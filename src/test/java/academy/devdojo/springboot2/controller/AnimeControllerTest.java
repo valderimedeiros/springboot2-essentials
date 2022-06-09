@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Collections;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
@@ -128,6 +129,24 @@ class AnimeControllerTest {
                 .hasSize(1);
 
         Assertions.assertThat(animes.get(0).getName()).isEqualTo(expectedName);
+
+
+    }
+
+    @Test
+    @DisplayName("FindByName returns an empty list of Anime when anime is not found")
+    void findByName_ReturnsEmptyListOfAnimes_WhenAnimeIsNotFound(){
+
+        BDDMockito.when(animeServiceMock.findByName(ArgumentMatchers.anyString()))
+                .thenReturn(Collections.emptyList());
+
+//        String expectedName = AnimeCreator.createValidAnime().getName();
+
+        List<Anime> animes = animeController.findByName("xpto da silva saudro").getBody();
+
+        Assertions.assertThat(animes)
+                .isNotNull()
+                .isEmpty();
 
 
     }
