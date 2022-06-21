@@ -38,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
 //                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                 .authorizeRequests()
+                .antMatchers("/anime/admin/**").hasRole("ADMIN")
+                .antMatchers("/anime/**").hasRole("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -56,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .roles("USER", "ADMIN")
 //                .and()
 //                .withUser("devdojo")
-//                .password(passwordEncoder.encode("academy"))
+//                .password(passwordEdncoder.encode("academy"))
 //                .roles("USER");
         auth.userDetailsService(devDojoUserDetailsService).passwordEncoder(passwordEncoder);
     }
