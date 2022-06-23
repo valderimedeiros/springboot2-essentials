@@ -109,7 +109,7 @@ class AnimeRepositoryTest {
 
         Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
                 .isThrownBy(() -> animeRepository.save(anime))
-                .withMessageContaining("The anime's name cannot be empty");
+                .withMessageContaining("The anime name cannot be empty");
 
 
 
